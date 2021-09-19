@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 *,*::after,*::before{
     box-sizing: border-box;
     margin: 0;
@@ -25,6 +27,14 @@
     align-items: center;
 }
 
+.no-wrap{
+    flex-wrap: nowrap;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
 .body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
@@ -35,7 +45,6 @@
 .header{
     background-color: #557cf2;
     color: black;
-    height: 8vh;
 }
 
 /*Logo*/
@@ -46,16 +55,19 @@
 }
 
 .logo img{
-    height: 80px;
-    width: 80px;
-    margin: 0.5rem;
+    height: 60px;
+    width: 60px;
+}
+
+.logo h1{
+    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif;
 }
 
 /*Navbar*/
 .navigation{
     flex: 0 0 30%;
     justify-content: space-evenly;
-    margin-right: 1rem;
 }
 
 .navigation a:hover {
@@ -77,7 +89,6 @@
 .footer{
     background-color: #557cf2;
     color: black;
-    height: 8vh;
 }
 
 /*Copyright*/
@@ -86,30 +97,48 @@
 }
 
 .copyright p{
-    font-size: 1.5rem;
+    font-size: 1rem;
     white-space: nowrap;
+    padding: 0.25rem;
 }
 
 /*Social Media*/
 .social-media a{
-    padding: 0.5rem;
-    margin-right: 1rem;
+    padding: 0.25rem;
 }
 
 .social-media a .fab{
-    font-size: 3rem;
+    font-size: 2rem;
     color: black;
 }
 
 /*Main*/
 
 .main{
-    flex-grow: 1;
+    background-image: url(../resources/Nvidia-RTX-3060-12GB.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    flex: 1 0 auto;
 }
 
+/*Slider*/
+.slider{
+    width : 80%;
+    justify-content: center;
+}
 
 /*Media Queries*/
+/*Phone*/
+@media screen and (max-width: 700px) {
+    .header{
+        flex-direction: column;
+    }
+    .navigation{
+        flex-direction: column;
+        flex: 0 0 25%;
+    }
 
-@media screen and (min-width: 768px) {
-    
+    .footer{
+        flex-direction: column;
+    }
 }
