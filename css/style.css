@@ -80,9 +80,25 @@
     height: 8vh;
 }
 
+/*Copyright*/
+.copyright{
+    margin-left: 1rem;
+}
+
+.copyright p{
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+/*Social Media*/
 .social-media a{
     padding: 0.5rem;
     margin-right: 1rem;
+}
+
+.social-media a .fab{
+    font-size: 3rem;
+    color: black;
 }
 
 /*Main*/
@@ -91,3 +107,9 @@
     flex-grow: 1;
 }
 
+
+/*Media Queries*/
+
+@media screen and (min-width: 768px) {
+    
+}
