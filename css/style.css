@@ -117,7 +117,24 @@
 .main{
     flex: 1 0 auto;
     justify-content: center;
+}
+
+/*Index*/
+
+.home-main{
     background-color: #88a3f5;
+}
+
+/*Products*/
+
+.products-main{
+    background-color: #bd7ce9;
+}
+
+/*Cart*/
+
+.cart-main{
+    background-color: #e4ee90;
 }
 
 /*Slider*/
