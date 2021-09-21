@@ -7,13 +7,13 @@ let catalog = store.catalog;
 //console.log(catalog);
 renderProductList();
 
-function productsToHtml(products){
-    return products.map((p) => productView(p))
+function renderProducts(products, nodeHtml){
+    products.forEach((p) =>  nodeHtml.insertAdjacentHTML("beforeend",productView(p)) )
 }
 
 function renderProductList(){
     Array.from(document.getElementsByClassName("catalog"))
         .forEach((element) => {
-            element.innerHTML = productsToHtml(catalog.products)
-        })
-}
+            renderProducts(catalog.products, element);
+            
+})}
