@@ -1,4 +1,4 @@
-class Catalog{
+export class Catalog{
 
     constructor(){
         this._products = [];

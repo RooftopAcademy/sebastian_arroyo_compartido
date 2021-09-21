@@ -1,4 +1,4 @@
-class Product {
+export class Product {
 
     constructor(){
         this._name = String;

@@ -1,3 +1,5 @@
+import { Store } from '../src/Store.js'
+
 function productsToHtml(products){
     return products.map((p) => productView(p))
 }
@@ -9,3 +11,7 @@ function renderProductList(){
             element.innerHTML = productsToHtml(catalog.products)
         })
 }
+
+let store = new Store;
+store.fetchProducts();
+console.log(store.catalog)
