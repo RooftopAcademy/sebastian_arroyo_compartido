@@ -6,6 +6,6 @@ function renderProductList(){
     Array.from(document.getElementById("catalog"))
         .forEach((element) => {
             //catalog.getProducts() returns an array of class Product
-            element.innerHTML = productsToHtml(catalog.getProducts())
+            element.innerHTML = productsToHtml(catalog.products)
         })
 }
