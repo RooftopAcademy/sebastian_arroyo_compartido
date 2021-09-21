@@ -1,5 +1,5 @@
 export function productView(product){
-    const div = document.createElement("div");
+    let div = document.createElement("div");
     div.classList.add('product-item');
     div.style.backgroundImage = product.image;
     div.innerHTML = `
@@ -7,6 +7,6 @@ export function productView(product){
     <span>${product.price}</span>
     <span>$${product.stock}</span>
     <button product-id="${product.id}" class="product-button">View More</button>
-`
-
+`;  
+    return div;
 }

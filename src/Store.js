@@ -1,10 +1,10 @@
 import { Cart } from './Cart.js'
 import { Catalog } from './Catalog.js'
-import { Product } from './Product'
+import { Product } from './Product.js'
 
 export class Store {
     constructor(){
-        this._user = new User;
+        this._user = String;
 
         this._catalog = new Catalog;
 
