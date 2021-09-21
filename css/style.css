@@ -131,6 +131,10 @@
     background-color: #bd7ce9;
 }
 
+.product-item{
+    background-color: white;
+}
+
 /*Cart*/
 
 .cart-main{

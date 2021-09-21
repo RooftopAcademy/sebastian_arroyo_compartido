@@ -8,5 +8,5 @@ export function productView(product){
     <span>$${product.stock}</span>
     <button product-id="${product.id}" class="product-button">View More</button>
 `;  
-    return div;
+    return div.innerHTML;
 }
