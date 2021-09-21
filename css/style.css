@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+*,*::after,*::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* Classes*/
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.space-evenly{
+    justify-content: space-evenly;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.no-wrap{
+    flex-wrap: nowrap;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
+.body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Header*/
+
+.header{
+    background-color: #557cf2;
+    color: black;
+}
+
+/*Logo*/
+
+.logo{
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo img{
+    height: 60px;
+    width: 60px;
+}
+
+.logo h1{
+    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/*Navbar*/
+.navigation{
+    flex: 0 0 30%;
+    justify-content: space-evenly;
+}
+
+.navigation a:hover {
+    background-color: #185bc7;
+}
+
+.navigation a{
+    text-decoration: none;
+    padding: 0.5rem;
+    color: black;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 25px
+}
+
+/*Footer*/
+
+.footer{
+    background-color: #557cf2;
+    color: black;
+}
+
+/*Copyright*/
+.copyright{
+    margin-left: 1rem;
+}
+
+.copyright p{
+    font-size: 1rem;
+    white-space: nowrap;
+    padding: 0.25rem;
+}
+
+/*Social Media*/
+.social-media a{
+    padding: 0.25rem;
+}
+
+.social-media a .fab{
+    font-size: 2rem;
+    color: black;
+}
+
+/*Main*/
+
+.main{
+    flex: 1 0 auto;
+    justify-content: center;
+}
+
+/*Index*/
+
+.home-main{
+    background-color: #88a3f5;
+}
+
+/*Products*/
+
+.products-main{
+    background-color: #bd7ce9;
+}
+
+/*Cart*/
+
+.cart-main{
+    background-color: #e4ee90;
+}
+
+/*Slider*/
+.slider{
+
+    background-color: aquamarine;
+    height: 45vh;
+    flex: 1 0 auto;
+    max-width: 80%;
+}
+
+/*Media Queries*/
+/*Phone*/
+@media screen and (max-width: 700px) {
+    .header{
+        flex-direction: column;
+    }
+    .navigation{
+        flex-direction: column;
+        flex: 0 0 25%;
+    }
+
+    .footer{
+        flex-direction: column;
+    }
+}
