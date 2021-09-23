@@ -1,5 +1,5 @@
-import { Store } from '../src/Store.js'
-import {productView} from '../src/views/productView.js'
+import { Store } from './Store.js'
+import {productView} from './views/productView.js'
 
 let store = new Store;
 store.fetchProducts();
