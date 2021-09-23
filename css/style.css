@@ -128,7 +128,38 @@
 /*Products*/
 
 .products-main{
-    background-color: #bd7ce9;
+    background-color: #88a3f5;
+}
+
+.catalog{
+    padding: 1rem;
+    justify-content: space-evenly;
+}
+
+.product-item{
+    background-color: white;
+    border: thin solid black;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 225px;
+    flex: 0 0 400px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    align-items: flex-end;
+}
+
+.product-details{
+
+}
+
+.product-details p, h4{
+    color: white;
+
+}
+
+.product-item p{
+    
+
 }
 
 /*Cart*/
