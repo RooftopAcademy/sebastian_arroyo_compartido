@@ -1,23 +1,16 @@
-import { Cart } from './Cart.js'
-import { Catalog } from './Catalog.js'
-import { Product } from './Product.js'
+import Cart from './Cart'
+import Catalog  from './Catalog'
+import Product from './Product'
 
-export class Store {
+export default class Store {
+
+    catalog: Catalog;
+    cart: Cart;
+    
     constructor(){
-        this._user = String;
 
-        this._catalog = new Catalog;
-
-        this._cart = new Cart;
-
-    }
-
-    get catalog(){
-        return this._catalog;
-    }
-
-    get cart(){
-        return this._cart;
+        this.catalog = new Catalog;
+        this.cart = new Cart;
     }
 
     fetchProducts(){
@@ -83,11 +76,11 @@ export class Store {
             let product = new Product;
             product.id = p.id;
             product.name = p.name; 
-            product.price = p.price;
-            product.stock = p.stock;
+            product.price = +p.price;
+            product.stock = +p.stock;
             product.image = p.image;
 
-            this._catalog.add(product);
+            this.catalog.add(product);
         })
     }
 }

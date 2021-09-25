@@ -1,4 +1,6 @@
-export function productView(product){
+import Product from "../Product";
+
+export default function productView(product: Product){
     /*let div = document.createElement("div");
     div.classList.add('product-item');
     div.style.backgroundImage = product.image;

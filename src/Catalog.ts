@@ -1,19 +1,19 @@
-export class Catalog{
+import Product from "./Product";
+
+export default class Catalog{
+
+    products : Product[];
 
     constructor(){
-        this._products = [];
+        this.products = [];
     }
 
-    get products(){
-        return this._products;
+    add(product: Product){
+        this.products.push(product);
     }
 
-    add(product){
-        this._products.push(product);
-    }
-
-    findById(id){
-        this._products.find((product) => {
+    findById(id: number){
+        this.products.find((product) => {
             return product.id == id;
         })
     }
