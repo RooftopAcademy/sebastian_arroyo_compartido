@@ -4,7 +4,7 @@ import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import Page from "./Page";
 import ProductPage from "./ProductPage";
-import RegistrationPage from "./RegistrationPage";
+import CartPage from "./CartPage";
 
 export default class Controller{
     document:Document;
@@ -24,7 +24,7 @@ export default class Controller{
         if(newPagePath == 'file:///Products'){
             this.currentPage = new ProductPage();
         }else if(newPagePath == 'file:///Register'){
-            this.currentPage = new RegistrationPage();
+            this.currentPage = new CartPage();
         }else if(newPagePath == 'file:///Login'){
             this.currentPage = new LoginPage();
         }else if(newPagePath == 'file:///Home'){
@@ -34,7 +34,7 @@ export default class Controller{
         }
     }
 
-    private loadMenuEventListeners(){
+    public renderPages(){
         let menuRoutes: Element[] = this.getMenuRoutes();
         let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
 
@@ -44,6 +44,7 @@ export default class Controller{
                 e.preventDefault();
                 let htmlLink = e.target as HTMLLinkElement;
                 if (htmlLink.href){
+                    console.log(htmlLink.href);
                     this.changePage(htmlLink.href);
                 }else{
                     this.changePage('Error')

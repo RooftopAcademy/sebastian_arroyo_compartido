@@ -1,6 +1,6 @@
 const path = require("path");
 module.exports = {
-    entry: "./src/app.ts",
+    entry: "./src/App.ts",
     mode: 'development',
     output: {
       path: path.resolve(__dirname, "dist"),
