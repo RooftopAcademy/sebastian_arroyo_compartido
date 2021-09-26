@@ -21,34 +21,37 @@ export default class Controller{
 
     private changePage(newPagePath: string){
 
-        if(newPagePath == 'file:///Products'){
+        if(newPagePath == '/products'){
             this.currentPage = new ProductPage();
-        }else if(newPagePath == 'file:///Register'){
+        }else if(newPagePath == '/cart'){
             this.currentPage = new CartPage();
-        }else if(newPagePath == 'file:///Login'){
+        }else if(newPagePath == '/login'){
             this.currentPage = new LoginPage();
-        }else if(newPagePath == 'file:///Home'){
+        }else if(newPagePath == '/home'){
             this.currentPage = new HomePage();
         }else{
             this.currentPage = new ErrorPage();
         }
     }
 
+    public renderHomePage(){
+        let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
+        mainContainer.innerHTML = this.currentPage.render();
+    }
+
     public renderPages(){
         let menuRoutes: Element[] = this.getMenuRoutes();
         let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
-
+        
         menuRoutes.forEach( navButton => {
             navButton.addEventListener('click', (e) => {
 
                 e.preventDefault();
                 let htmlLink = e.target as HTMLLinkElement;
-                if (htmlLink.href){
-                    console.log(htmlLink.href);
-                    this.changePage(htmlLink.href);
-                }else{
-                    this.changePage('Error')
-                }
+                let dataId = htmlLink.dataset.id as string;
+                console.log(htmlLink.dataset.id)
+                this.changePage(dataId);
+                
                 mainContainer.innerHTML = this.currentPage.render();
             })
         })
