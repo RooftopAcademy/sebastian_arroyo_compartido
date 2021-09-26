@@ -1,7 +1,7 @@
 import { ElementFlags } from "../node_modules/typescript/lib/typescript";
 import ErrorPage from "./ErrorPage";
 import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
+import RegistrationPage from "./RegistrationPage";
 import Page from "./Page";
 import ProductPage from "./ProductPage";
 import CartPage from "./CartPage";
@@ -25,8 +25,8 @@ export default class Controller{
             this.currentPage = new ProductPage();
         }else if(newPagePath == '/cart'){
             this.currentPage = new CartPage();
-        }else if(newPagePath == '/login'){
-            this.currentPage = new LoginPage();
+        }else if(newPagePath == '/registration'){
+            this.currentPage = new RegistrationPage();
         }else if(newPagePath == '/home'){
             this.currentPage = new HomePage();
         }else{
