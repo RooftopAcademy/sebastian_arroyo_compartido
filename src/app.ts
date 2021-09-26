@@ -8,6 +8,7 @@ let controller = new Controller(document);
 store.fetchProducts();
 let catalog = store.catalog;
 //console.log(catalog);
+controller.renderHomePage();
 controller.renderPages();
 
 function renderProducts(products: Product[], nodeHtml: Element) {
