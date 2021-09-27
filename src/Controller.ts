@@ -19,7 +19,7 @@ export default class Controller{
     }
 
     fetchStoreProducts(){
-        this.store.fetchProducts();
+        this.store.fetchProductsFromApi();
     }
 
     private getMenuRoutes():Element[]{

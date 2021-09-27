@@ -4,7 +4,7 @@ export default class CartPage implements Page{
     content:string;
 
     constructor(){
-        this.content = "hello this is the cart page";
+        this.content = "Cart Page";
     }
 
     render():string{

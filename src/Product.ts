@@ -6,11 +6,15 @@ export default class Product {
     stock: number;
     image: string;
 
+    /*constructor(public name: string = "", public id: number = 0, public price: number = 0, public image: string = "", public stock: number = 0) {
+
+    }*/
     constructor(){
         this.name = "";
         this.id = 0;
         this.price = 0;
         this.stock = 0;
         this.image = "";
+
     }
 }

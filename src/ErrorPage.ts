@@ -4,7 +4,7 @@ export default class ErrorPage implements Page{
     content:string;
 
     constructor(){
-        this.content = "hello this is the Errorpage";
+        this.content = "404 ERROR";
     }
 
     render():string{
