@@ -5,14 +5,21 @@ import RegistrationPage from "./RegistrationPage";
 import Page from "./Page";
 import ProductPage from "./ProductPage";
 import CartPage from "./CartPage";
+import Store from "./Store";
 
 export default class Controller{
     document:Document;
     currentPage: Page;
+    store: Store;
 
-    constructor(document:Document){
+    constructor(document:Document, store:Store){
         this.document = document;
         this.currentPage = new HomePage();
+        this.store = store;
+    }
+
+    fetchStoreProducts(){
+        this.store.fetchProducts();
     }
 
     private getMenuRoutes():Element[]{
@@ -22,7 +29,7 @@ export default class Controller{
     private changePage(newPagePath: string){
 
         if(newPagePath == '/products'){
-            this.currentPage = new ProductPage();
+            this.currentPage = new ProductPage(this);
         }else if(newPagePath == '/cart'){
             this.currentPage = new CartPage();
         }else if(newPagePath == '/registration'){

@@ -46,7 +46,7 @@ export default class Store {
             {
             id: 5,
             image: 'resources/Nvidia-Geforce-Gtx-1650.jpg',
-            name: 'Nvidia GeForce GTX 1650 Super',
+            name: 'Nvidia GeForce GTX 1650',
             stock: '8',
             price: '159'
             },
@@ -82,5 +82,9 @@ export default class Store {
 
             this.catalog.add(product);
         })
+    }
+
+    exportProducts(){
+        return this.catalog.products
     }
 }

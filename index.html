@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/577c267cd5.js" crossorigin="anonymous" defer></script>
-    <script  type="module" src="dist/bundle.js" defer></script>
+    <script  type="module" src="dist/bundle.js"></script>
     <!--<script type="module" src="js/app.js" defer></script>-->
     <title>Gfx Store</title>
 </head>
@@ -19,7 +19,11 @@
         <nav class="navigation d-flex">
             <a class="js-route" data-id= "/home" href="/home">Home</a>
             <a class="js-route" data-id= "/products" href="/products">Products</a>
-            <a class="js-route" data-id="/cart" href="/cart">Cart</a>
+            <a class="js-route d-flex space-evenly align-items-center" data-id="/cart" href="/cart">Cart
+                <div class = "product-counter" id="product-counter" data-counter="0">
+                    0
+                </div>
+            </a>
             <a class="js-route" data-id="/registration" href= "/registration">Registration</a>
         </nav>
     </header>
