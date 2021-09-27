@@ -10,4 +10,7 @@ export default class HomePage implements Page{
     render():string{
         return this.content;
     }
+    loadEventBehavior(){
+        
+    }
 }

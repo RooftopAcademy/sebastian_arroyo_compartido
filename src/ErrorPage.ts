@@ -10,4 +10,8 @@ export default class ErrorPage implements Page{
     render():string{
         return this.content;
     }
+
+    loadEventBehavior(){
+
+    }
 }
