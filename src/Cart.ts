@@ -2,19 +2,20 @@ import Product from "./Product";
 
 export default class Cart{
 
-    products: Product[];
+    products: number[];
+    counter: number;
 
     constructor(){
         this.products = [];
+        this.counter = 0;
     }
 
-    add(product: Product){
-        this.products.push(product);
+    add(productId: number){
+        this.products.push(productId);
+        this.counter = this.counter + 1;
     }
 
-    findById(id: number){
-        this.products.find((product) => {
-            return product.id == id;
-        })
-    }
+    
+
+
 }
