@@ -10,4 +10,8 @@ export default class CartPage implements Page{
     render():string{
         return this.content;
     }
+
+    loadEventBehavior(){
+        
+    }
 }

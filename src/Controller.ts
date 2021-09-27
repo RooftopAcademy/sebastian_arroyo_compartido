@@ -49,10 +49,10 @@ export default class Controller{
                 e.preventDefault();
                 let htmlLink = e.target as HTMLLinkElement;
                 let dataId = htmlLink.dataset.id as string;
-                console.log(htmlLink.dataset.id)
                 this.changePage(dataId);
                 
                 mainContainer.innerHTML = this.currentPage.render();
+                this.currentPage.loadEventBehavior();
             })
         })
     }
