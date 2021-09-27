@@ -22,12 +22,12 @@ export default class ProductPage implements Page{
     private productItemView(product: Product){
         return `
         <div class = "product-item d-flex" style = "background-image: url(${product.image})">
-            <div class ="product-details d-flex">
+            <div class = "detail-text">
                 <h4 class="gfx-title">${product.name}</h3>
                 <p>${product.price}$</p>
                 <p>Stock:${product.stock}</p>
-                <button product-id="${product.id}" class="product-button">Add To Cart</button>
             </div>
+            <button product-id="${product.id}" class="product-button">Add To Cart</button>
         </div>
         `;
     }
@@ -65,7 +65,7 @@ export default class ProductPage implements Page{
             {
             id: 5,
             image: 'resources/Nvidia-Geforce-Gtx-1650.jpg',
-            name: 'Nvidia GeForce GTX 1650 Super',
+            name: 'Nvidia GeForce GTX 1650',
             stock: '8',
             price: '159'
             },
@@ -113,6 +113,10 @@ export default class ProductPage implements Page{
                 this.renderProducts(element);
     
             })
+    }
+
+    private addToCart(){
+        
     }
 
     loadEventBehavior(){
