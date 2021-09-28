@@ -4,7 +4,7 @@ export default class HomePage implements Page{
     content:string;
 
     constructor(){
-        this.content = "hello this is the homepage";
+        this.content = "HomePage";
     }
 
     render():string{

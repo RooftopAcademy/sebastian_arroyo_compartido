@@ -11,15 +11,16 @@ export default class Controller{
     document:Document;
     currentPage: Page;
     store: Store;
-
+    
     constructor(document:Document, store:Store){
+
         this.document = document;
         this.currentPage = new HomePage();
         this.store = store;
     }
 
     fetchStoreProducts(){
-        this.store.fetchProducts();
+        this.store.fetchProductsFromApi();
     }
 
     private getMenuRoutes():Element[]{
