@@ -6,17 +6,20 @@ import Page from "./Page";
 import ProductPage from "./ProductPage";
 import CartPage from "./CartPage";
 import Store from "./Store";
+import PageRouter from "./PageRouter";
 
 export default class Controller{
     document:Document;
     currentPage: Page;
     store: Store;
+    pageRouter: PageRouter;
     
     constructor(document:Document, store:Store){
 
         this.document = document;
-        this.currentPage = new HomePage();
+        this.currentPage = new HomePage(this);
         this.store = store;
+        this.pageRouter = new PageRouter();
     }
 
     fetchStoreProducts(){
@@ -29,7 +32,9 @@ export default class Controller{
 
     private changePage(newPagePath: string){
 
-        if(newPagePath == '/products'){
+        this.currentPage = this.pageRouter.getPage(newPagePath, this )
+
+        /*if(newPagePath == '/products'){
             this.currentPage = new ProductPage(this);
         }else if(newPagePath == '/cart'){
             this.currentPage = new CartPage();
@@ -39,7 +44,7 @@ export default class Controller{
             this.currentPage = new HomePage();
         }else{
             this.currentPage = new ErrorPage();
-        }
+        }*/
     }
 
     public renderHomePage(){

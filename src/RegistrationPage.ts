@@ -1,9 +1,11 @@
+import Controller from "./Controller";
 import Page from "./Page";
 
 export default class RegistrationPage implements Page{
     content:string;
+    controller : Controller;
 
-    constructor(){
+    constructor(controller:Controller){
         this.content = `
         <form action = "/" method = "GET" id = "form" class="form d-flex">
             <ul class="registration-container">
@@ -45,6 +47,7 @@ export default class RegistrationPage implements Page{
 
             <div>
         </form>`;
+        this.controller = controller;
     }
 
     render():string{
