@@ -1,11 +1,11 @@
-import Controller from "./Controller";
+import PageRenderer from "../controller/PageRenderer";
 import Page from "./Page";
 
 export default class RegistrationPage implements Page{
     content:string;
-    controller : Controller;
+    controller : PageRenderer;
 
-    constructor(controller:Controller){
+    constructor(controller:PageRenderer){
         this.content = `
         <form action = "/" method = "GET" id = "form" class="form d-flex">
             <ul class="registration-container">
