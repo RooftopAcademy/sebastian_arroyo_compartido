@@ -1,5 +1,5 @@
 import Cart from "../classModel/Cart";
-import PageRenderer from "../controller/PageRenderer";
+import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
 import Product from "../classModel/Product";
 

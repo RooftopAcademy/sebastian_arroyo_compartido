@@ -1,4 +1,4 @@
-import PageRenderer from "./controller/PageRenderer";
+import PageRenderer from "./pageController/PageRenderer";
 import Store from "./classModel/Store";
 let store:Store = new Store;
 let pageRenderer = new PageRenderer(document, store);

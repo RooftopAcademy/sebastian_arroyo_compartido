@@ -1,4 +1,4 @@
-import PageRenderer from "../controller/PageRenderer";
+import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
 
 export default class CartPage implements Page{

@@ -1,11 +1,11 @@
-import PageRenderer from "../controller/PageRenderer";
+import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
 
-export default class RegistrationPage implements Page{
-    content:string;
-    controller : PageRenderer;
+export default class RegistrationPage implements Page {
+    content: string;
+    controller: PageRenderer;
 
-    constructor(controller:PageRenderer){
+    constructor(controller: PageRenderer) {
         this.content = `
         <form action = "/" method = "GET" id = "form" class="form d-flex">
             <ul class="registration-container">
@@ -50,29 +50,29 @@ export default class RegistrationPage implements Page{
         this.controller = controller;
     }
 
-    render():string{
+    render(): string {
         return this.content;
     }
 
-    private validateFormInput(input: HTMLInputElement[], messages:string[]){
+    private validateFormInput(input: HTMLInputElement[], messages: string[]) {
         input.forEach(inputString => {
-            if (inputString.value.length >= 30){
+            if (inputString.value.length >= 30) {
                 messages.push(inputString.id + " must be less than 30 characters");
-            }else if (inputString.value.length <=6){
+            } else if (inputString.value.length <= 6) {
                 messages.push(inputString.id + " must be longer than 6 characters");
             }
         })
     }
 
-    private validatePasswordInput(pass1: string, pass2: string, messages:string[]){
-        if (pass1 != pass2){
+    private validatePasswordInput(pass1: string, pass2: string, messages: string[]) {
+        if (pass1 != pass2) {
             messages.push("Passwords must match");
-        }else if(pass1 == "password" || pass2 =="password"){
+        } else if (pass1 == "password" || pass2 == "password") {
             messages.push("Password cant be 'password'");
         }
     }
 
-    loadEventBehavior():void{
+    loadEventBehavior(): void {
         let firstName = document.getElementById("First-name");
         let lastName = document.getElementById("Last-name");
         let email = document.getElementById("Email");
@@ -88,8 +88,8 @@ export default class RegistrationPage implements Page{
             this.validateFormInput(inputArray, messages);
             console.log(messages);
             this.validatePasswordInput(password.value, repeatPassword.value, messages);
-            
-            if (messages.length > 0){
+
+            if (messages.length > 0) {
                 e.preventDefault();
                 error.innerHTML = messages.join(', ');
             }
