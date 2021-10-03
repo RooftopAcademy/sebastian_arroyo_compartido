@@ -1,10 +1,10 @@
-import CartPage from "./CartPage"
-import Controller from "./Controller"
-import ErrorPage from "./ErrorPage"
-import HomePage from "./HomePage"
-import Page from "./Page"
-import ProductPage from "./ProductPage"
-import RegistrationPage from "./RegistrationPage"
+import CartPage from "../pageView/CartPage"
+import PageRenderer from "./PageRenderer"
+import ErrorPage from "../pageView/ErrorPage"
+import HomePage from "../pageView/HomePage"
+import Page from "../pageView/Page"
+import ProductPage from "../pageView/ProductPage"
+import RegistrationPage from "../pageView/RegistrationPage"
 
 export default class PageRouter {
     private paths:any
@@ -20,7 +20,7 @@ export default class PageRouter {
         }
     }
 
-    getPage(path: string, controller:Controller): Page {
+    getPage(path: string, controller:PageRenderer): Page {
         return new (this.paths[path])(controller);
     }
 }

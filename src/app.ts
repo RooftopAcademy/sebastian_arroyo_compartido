@@ -1,8 +1,8 @@
-import Controller from "./Controller";
-import Store from "./Store";
+import PageRenderer from "./controller/PageRenderer";
+import Store from "./classModel/Store";
 let store:Store = new Store;
-let controller = new Controller(document, store);
+let pageRenderer = new PageRenderer(document, store);
 //console.log(catalog);
-controller.fetchStoreProducts();
-controller.renderHomePage();
-controller.renderPages();
+pageRenderer.fetchStoreProducts();
+pageRenderer.renderHomePage();
+pageRenderer.renderPages();

@@ -1,11 +1,11 @@
-import Controller from "./Controller";
+import PageRenderer from "../controller/PageRenderer";
 import Page from "./Page";
 
 export default class CartPage implements Page{
     content:string;
-    controller : Controller;
+    controller : PageRenderer;
 
-    constructor(controller : Controller){
+    constructor(controller : PageRenderer){
         this.content = "Cart Page";
         this.controller = controller
     }

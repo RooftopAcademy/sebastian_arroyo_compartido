@@ -1,9 +1,9 @@
-import HomePage from "./HomePage";
-import Page from "./Page";
-import Store from "./Store";
+import HomePage from "../pageView/HomePage";
+import Page from "../pageView/Page";
+import Store from "../classModel/Store";
 import PageRouter from "./PageRouter";
 
-export default class Controller {
+export default class PageRenderer {
     document: Document;
     currentPage: Page;
     store: Store;

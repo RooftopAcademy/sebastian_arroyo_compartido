@@ -1,14 +1,14 @@
-import Cart from "./Cart";
-import Controller from "./Controller";
+import Cart from "../classModel/Cart";
+import PageRenderer from "../controller/PageRenderer";
 import Page from "./Page";
-import Product from "./Product";
+import Product from "../classModel/Product";
 
 export default class ProductPage implements Page{
     content:string;
-    controller : Controller;
+    controller : PageRenderer;
 
 
-    constructor(controller:Controller){
+    constructor(controller:PageRenderer){
         this.content = `
         <div class="catalog d-flex wrap">
 
