@@ -1,4 +1,3 @@
-import Cart from "./Cart"
 import CartPage from "./CartPage"
 import Controller from "./Controller"
 import ErrorPage from "./ErrorPage"
@@ -13,16 +12,15 @@ export default class PageRouter {
     constructor() {
         this.paths = {
             "": HomePage,
-            "/home": HomePage,
-            "/products": ProductPage,
-            "/cart": CartPage,
-            "/registration": RegistrationPage,
-            "/404": ErrorPage
+            "#/home": HomePage,
+            "#/products": ProductPage,
+            "#/cart": CartPage,
+            "#/registration": RegistrationPage,
+            "#/404": ErrorPage
         }
     }
 
-    getPage(path: string, controller:Controller): any {
-        console.log(this.paths[path]);
+    getPage(path: string, controller:Controller): Page {
         return new (this.paths[path])(controller);
     }
 }

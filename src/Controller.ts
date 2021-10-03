@@ -1,20 +1,15 @@
-import { ElementFlags } from "../node_modules/typescript/lib/typescript";
-import ErrorPage from "./ErrorPage";
 import HomePage from "./HomePage";
-import RegistrationPage from "./RegistrationPage";
 import Page from "./Page";
-import ProductPage from "./ProductPage";
-import CartPage from "./CartPage";
 import Store from "./Store";
 import PageRouter from "./PageRouter";
 
-export default class Controller{
-    document:Document;
+export default class Controller {
+    document: Document;
     currentPage: Page;
     store: Store;
     pageRouter: PageRouter;
-    
-    constructor(document:Document, store:Store){
+
+    constructor(document: Document, store: Store) {
 
         this.document = document;
         this.currentPage = new HomePage(this);
@@ -22,51 +17,30 @@ export default class Controller{
         this.pageRouter = new PageRouter();
     }
 
-    fetchStoreProducts(){
+    fetchStoreProducts() {
         this.store.fetchProductsFromApi();
     }
 
-    private getMenuRoutes():Element[]{
+    private getMenuRoutes(): Element[] {
         return Array.from(this.document.getElementsByClassName('js-route'));
     }
 
-    private changePage(newPagePath: string){
-
-        this.currentPage = this.pageRouter.getPage(newPagePath, this )
-
-        /*if(newPagePath == '/products'){
-            this.currentPage = new ProductPage(this);
-        }else if(newPagePath == '/cart'){
-            this.currentPage = new CartPage();
-        }else if(newPagePath == '/registration'){
-            this.currentPage = new RegistrationPage();
-        }else if(newPagePath == '/home'){
-            this.currentPage = new HomePage();
-        }else{
-            this.currentPage = new ErrorPage();
-        }*/
+    private changePage(newPagePath: string) {
+        this.currentPage = this.pageRouter.getPage(newPagePath, this)
     }
 
-    public renderHomePage(){
+    public renderHomePage() {
         let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
         mainContainer.innerHTML = this.currentPage.render();
     }
 
-    public renderPages(){
-        let menuRoutes: Element[] = this.getMenuRoutes();
+    public renderPages() {
         let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
-        
-        menuRoutes.forEach( navButton => {
-            navButton.addEventListener('click', (e) => {
-
-                e.preventDefault();
-                let htmlLink = e.target as HTMLLinkElement;
-                let dataId = htmlLink.dataset.id as string;
-                this.changePage(dataId);
-                
-                mainContainer.innerHTML = this.currentPage.render();
-                this.currentPage.loadEventBehavior();
-            })
+        window.addEventListener('hashchange', (e) => {
+            const hashPath = window.location.hash;
+            this.changePage(hashPath);
+            mainContainer.innerHTML = this.currentPage.render();
+            this.currentPage.loadEventBehavior();
         })
     }
 
