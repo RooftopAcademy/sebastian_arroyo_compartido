@@ -7,6 +7,7 @@ export default class CartPage implements Page{
 
     constructor(controller : PageRenderer){
         this.content = "Cart Page";
+        
         this.controller = controller
     }
 

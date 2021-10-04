@@ -5,9 +5,7 @@ export default class Product {
     price: number;
     stock: number;
     image: string;
-
     /*constructor(public name: string = "", public id: number = 0, public price: number = 0, public image: string = "", public stock: number = 0) {
-
     }*/
     constructor(){
         this.name = "";
@@ -16,5 +14,9 @@ export default class Product {
         this.stock = 0;
         this.image = "";
 
+    }
+
+    public hasStock() : boolean{
+        return this.stock > 0;
     }
 }

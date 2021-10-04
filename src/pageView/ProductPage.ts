@@ -2,10 +2,11 @@ import Cart from "../classModel/Cart";
 import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
 import Product from "../classModel/Product";
+import Catalog from "../classModel/Catalog";
 
 export default class ProductPage implements Page{
     content:string;
-    controller : PageRenderer;
+    pageRenderer : PageRenderer;
 
 
     constructor(controller:PageRenderer){
@@ -14,7 +15,7 @@ export default class ProductPage implements Page{
 
         </div>
         `;
-        this.controller = controller;
+        this.pageRenderer = controller;
     }
 
     render():string{
@@ -37,7 +38,7 @@ export default class ProductPage implements Page{
 
 
     private renderProducts(nodeHtml: Element) {
-        this.controller.store.exportProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.productItemView(p)))
+        this.pageRenderer.store.exportProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.productItemView(p)))
     }
     
     private renderProductList() {
@@ -57,9 +58,12 @@ export default class ProductPage implements Page{
             button.addEventListener('click', (e) => {
 
                 let id: string = button.dataset.id as string;
-                let cart:Cart =  this.controller.store.cart;
-                //Adds product id to my object cart inside object store for later use 
-                cart.add(+id);
+                let cart:Cart =  this.pageRenderer.store.cart;
+                let catalog :Catalog = this.pageRenderer.getProductsCatalog();
+                let product: Product = catalog.findById(+id);
+                console.log(product);
+                //Adds object Product to current Cart
+                cart.addProduct(product);
                 cartNotification.innerHTML = cart.counter.toString();
 
             })
