@@ -22,10 +22,6 @@ export default class PageRenderer {
         this.store.fetchProductsFromApi();
     }
 
-    /*private getMenuRoutes(): Element[] {
-        return Array.from(this.document.getElementsByClassName('js-route'));
-    }*/
-
     private changePage(newPagePath: string) {
         this.currentPage = this.pageRouter.getPage(newPagePath, this)
     }

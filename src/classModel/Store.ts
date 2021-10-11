@@ -25,6 +25,7 @@ export default class Store {
     }
 
     exportProducts() {
+        this.catalog.products.forEach(p => p.qtyRequested=0)
         return this.catalog.products
     }
 }

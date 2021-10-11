@@ -16,9 +16,14 @@ export default class Cart{
             this.counter +=  1;
             //Reduces product stock in catalog and increases product counter in your cart
             product.stock -=1;
+            product.qtyRequested += 1;
         }else{
             console.log(`Product ${product.name} is out of stock.`)
         }
+    }
+
+    getProducts(){
+        return this.products;
     }
 
     

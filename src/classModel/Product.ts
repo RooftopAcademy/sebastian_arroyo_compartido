@@ -5,6 +5,7 @@ export default class Product {
     price: number;
     stock: number;
     image: string;
+    qtyRequested: number;
     /*constructor(public name: string = "", public id: number = 0, public price: number = 0, public image: string = "", public stock: number = 0) {
     }*/
     constructor(){
@@ -13,6 +14,7 @@ export default class Product {
         this.price = 0;
         this.stock = 0;
         this.image = "";
+        this.qtyRequested = 0;
 
     }
 

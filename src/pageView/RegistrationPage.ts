@@ -84,9 +84,7 @@ export default class RegistrationPage implements Page {
         let inputArray = [firstName, lastName, email, phone] as HTMLInputElement[];
         form?.addEventListener('submit', (e) => {
             let messages: string[] = [];
-            console.log(messages);
             this.validateFormInput(inputArray, messages);
-            console.log(messages);
             this.validatePasswordInput(password.value, repeatPassword.value, messages);
 
             if (messages.length > 0) {
