@@ -17,14 +17,13 @@ export default class CartPage implements Page{
                         <th>Product Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>Subtotal</th>
                     </tr>
                 </thead>
                 <tbody class = "product-cart-section-body">
                     
                 </tbody>
             </table>
-            </div>
-            <div class = "price-cart-section d-flex flex-column justify-content-center" id = "price-cart-section">
             </div>
         </div>
         `;
@@ -39,6 +38,7 @@ export default class CartPage implements Page{
             <td>${product.name}</td>
             <td>$${product.price}</td>
             <td>${product.qtyRequested}</td>
+            <td>${product.qtyRequested * product.price}</td>
         </tr>
         `;
     }

@@ -216,9 +216,6 @@
 
 /*CartPage*/
 
-.cart-main{
-    background-color: #e4ee90;
-}
 
 .cart-container{
      width: 80%;
@@ -227,21 +224,17 @@
 
 .product-cart-section{
     background-color: white;
-    width: 75%;
+    width: 100%;
 }
 
-.price-cart-section{
-    background-color: white;
-    width: 25%;
-}
 
 .product-cart-table{
     width: 100%;
 }
 
 table, th, td {
-
-    border: 1px solid black;
+    padding: 0.5rem;
+    border: 3px solid black;
     border-collapse: collapse;
 }  
 
