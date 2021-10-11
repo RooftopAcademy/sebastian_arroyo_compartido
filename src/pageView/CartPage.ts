@@ -9,15 +9,20 @@ export default class CartPage implements Page{
     constructor(controller : PageRenderer){
         this.content = `
         <div class = "cart-container d-flex space-evenly" id = "cart">
-            <div class = "product-cart-section d-flex flex-column" id = "product-cart-section">
-                <div class = "cart-item-container d-flex">
-                    <div class = "cart-item-detail d-flex">
-                        <p>Id - Product Name</p>
-                        <p>Price</p>
-                        <p id = "cart-item-quantity">Quantity</p>
-                    </div>
+            <div class = "product-cart-section" >
+            <table class = "product-cart-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody class = "product-cart-section-body">
                     
-                </div>
+                </tbody>
+            </table>
             </div>
             <div class = "price-cart-section d-flex flex-column justify-content-center" id = "price-cart-section">
             </div>
@@ -29,17 +34,12 @@ export default class CartPage implements Page{
 
     private cartItemView(product: Product){
         return `
-        <div class = "cart-item-container d-flex">
-            <div class = "cart-item-detail d-flex justify-self-start">
-                <p>${product.id} - ${product.name}</p>
-                <p>${product.price}$</p>
-                <p id = "cart-item-quantity">${product.qtyRequested}</p>
-            </div>
-            <div class = "cart-button-container d-flex justify-self-end">
-                <button class = "cart-item-button" id = "cart-item-add">Add</button>
-                <button class = "cart-item-button" id = "cart-item-remove">Remove</button>
-            </div>
-        </div>
+        <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>$${product.price}</td>
+            <td>${product.qtyRequested}</td>
+        </tr>
         `;
     }
 
@@ -48,7 +48,7 @@ export default class CartPage implements Page{
     }
 
     private renderCartItemList() {
-        Array.from(document.getElementsByClassName("product-cart-section"))
+        Array.from(document.getElementsByClassName("product-cart-section-body"))
             .forEach((element) => {
                 this.renderCartItem(element);
     

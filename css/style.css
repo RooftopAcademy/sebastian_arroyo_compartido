@@ -221,34 +221,29 @@
 }
 
 .cart-container{
-     border: thin solid black;
-     padding: 1rem;
-     background-color: red;
-     width: 60%;
+     width: 80%;
      min-width: 330px;
 }
 
 .product-cart-section{
-    border: thin solid black;
     background-color: white;
-    padding: 0.5rem;
     width: 75%;
 }
 
 .price-cart-section{
-    border: thin solid black;
     background-color: white;
-    padding: 0.5rem;
     width: 25%;
 }
 
-.cart-item-detail{
-    
+.product-cart-table{
+    width: 100%;
 }
 
-.cart-item-container{
-    justify-content: space-between;
-}
+table, th, td {
+
+    border: 1px solid black;
+    border-collapse: collapse;
+}  
 
 
 /*Slider*/
