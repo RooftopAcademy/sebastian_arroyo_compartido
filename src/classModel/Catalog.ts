@@ -17,4 +17,5 @@ export default class Catalog{
         let product:Product | undefined = this.products.find((product) => product.id == id);
         return product != undefined ? product : new Product();
     }
+
 }

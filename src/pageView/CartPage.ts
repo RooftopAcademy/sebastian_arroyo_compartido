@@ -85,6 +85,7 @@ export default class CartPage implements Page{
             <td></td>
             <td>${cartCounter}</td>
             <td>$${totalPrice}</td>
+            <td>Buy</td>
         </tr>
         `;
     }
@@ -131,6 +132,14 @@ export default class CartPage implements Page{
         cartNotification.innerHTML = cart.counter.toString();
     }
 
+    private trashButtonBehavior(button : HTMLButtonElement, cartNotification: HTMLDivElement){
+        let id: string = button.dataset.id as string;
+        let cart:Cart =  this.pageRenderer.store.cart;
+        cart.removeCartProduct(+id);
+        cartNotification.innerHTML = cart.counter.toString();
+
+    }
+
     /*
     Updates the current page by re-rendering trough the PageRenderer class 
     */
@@ -144,8 +153,10 @@ export default class CartPage implements Page{
         let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
         buttons.forEach(button => {
             button.addEventListener('click', () => {
+                /*Refactor ifs / switch with enum or map later*/
                 if (button.className == "plus-button") this.plusButtonBehavior(button, cartNotification);
-                else this.minusButtonBehavior(button, cartNotification);
+                else if (button.className == "minus-button") this.minusButtonBehavior(button, cartNotification);
+                else this.trashButtonBehavior(button, cartNotification);
                 this.updatePage();
             })
         })
@@ -155,7 +166,8 @@ export default class CartPage implements Page{
     private loadButtonsBehavior(){
         let minusButtons = Array.from(this.pageRenderer.document.getElementsByClassName("minus-button")) as HTMLButtonElement[];
         let plusButtons = Array.from(this.pageRenderer.document.getElementsByClassName("plus-button")) as HTMLButtonElement[];
-        let buttons: HTMLButtonElement[] = [...minusButtons, ...plusButtons];
+        let trashButtons = Array.from(this.pageRenderer.document.getElementsByClassName("trash-button")) as HTMLButtonElement[];
+        let buttons: HTMLButtonElement[] = [...minusButtons, ...plusButtons, ...trashButtons];
         this.productsButton(buttons);
     }
 

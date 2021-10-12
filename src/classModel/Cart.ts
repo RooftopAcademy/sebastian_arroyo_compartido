@@ -31,6 +31,22 @@ export default class Cart{
         }
     }
 
+    findById(id: number) : Product{
+        let product:Product | undefined = this.products.find((product) => product.id == id);
+        return product != undefined ? product : new Product();
+    }
+
+    removeCartProduct(id:number){
+        let productToRemove : Product = this.findById(id);
+        this.counter = this.counter - productToRemove.qtyRequested;
+
+        this.products = this.products.filter((product) => {
+            return product.id != id;
+        })
+        this.productsId.delete(id);
+
+    }
+
     getProducts(){
         return this.products;
     }
