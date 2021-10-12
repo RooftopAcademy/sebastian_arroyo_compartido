@@ -1,3 +1,5 @@
+import Cart from "../classModel/Cart";
+import Catalog from "../classModel/Catalog";
 import Product from "../classModel/Product";
 import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
@@ -65,6 +67,7 @@ export default class CartPage implements Page{
     private cartItemTotalView() : string{
         let products = this.pageRenderer.store.cart.getProducts();
         let totalPrice = 0;
+        let cartCounter = this.pageRenderer.store.cart.counter;
         products.forEach(p => {
             totalPrice += p.qtyRequested * p.price;
         })
@@ -73,7 +76,7 @@ export default class CartPage implements Page{
             <td></td>
             <td></td>
             <td></td>
-            <td>${this.pageRenderer.store.cart.counter}</td>
+            <td>${cartCounter}</td>
             <td>$${totalPrice}</td>
         </tr>
         `;
@@ -95,12 +98,54 @@ export default class CartPage implements Page{
         this.renderCartItemTotal(cartProductsSection);
     }
 
+    private productsMinusButton(){
+        let minusButton = Array.from(this.pageRenderer.document.getElementsByClassName("minus-button")) as HTMLButtonElement[];
+        let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
+        minusButton.forEach(button => {
+            button.addEventListener('click', () => {
+                let id: string = button.dataset.id as string;
+                let cart:Cart =  this.pageRenderer.store.cart;
+                let catalog :Catalog = this.pageRenderer.getProductsCatalog();
+                let product: Product = catalog.findById(+id);
+                if (product.stock > 0){
+                    cart.counter -= 1;
+                    product.stock += 1;
+                    product.qtyRequested -=1;
+                }
+                cartNotification.innerHTML = cart.counter.toString();
+            })
+        })
+
+    }
+
+    private productsPlusButton(){
+        let plusButton  = Array.from(this.pageRenderer.document.getElementsByClassName("plus-button")) as HTMLButtonElement[];
+        let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
+        plusButton.forEach(button => {
+            button.addEventListener('click', () => {
+                let id: string = button.dataset.id as string;
+                let cart:Cart =  this.pageRenderer.store.cart;
+                let catalog :Catalog = this.pageRenderer.getProductsCatalog();
+                let product: Product = catalog.findById(+id);
+                if (product.stock > 0){
+                    cart.counter += 1;
+                    product.stock -= 1;
+                    product.qtyRequested +=1;
+                }
+                cartNotification.innerHTML = cart.counter.toString();
+            })
+        })
+
+    }
+
     render():string{
         return this.content;
     }
 
     loadEventBehavior(){
         this.renderCartItemList();
+        this.productsMinusButton();
+        this.productsPlusButton();
         
     }
 }

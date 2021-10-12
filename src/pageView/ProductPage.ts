@@ -42,7 +42,7 @@ export default class ProductPage implements Page{
     }
     
     private renderProductList() {
-        Array.from(document.getElementsByClassName("catalog"))
+        Array.from(this.pageRenderer.document.getElementsByClassName("catalog"))
             .forEach((element) => {
                 this.renderProducts(element);
     
@@ -51,11 +51,11 @@ export default class ProductPage implements Page{
 
     private addToCartNotification(){
         //holds all add to cart buttons inside the product list
-        let addToCartButton = Array.from(document.getElementsByClassName('product-button')) as HTMLButtonElement[];
-        let cartNotification = document.getElementById('product-counter') as HTMLDivElement;
+        let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button')) as HTMLButtonElement[];
+        let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
         addToCartButton.forEach((button) => {
 
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', () => {
 
                 let id: string = button.dataset.id as string;
                 let cart:Cart =  this.pageRenderer.store.cart;
