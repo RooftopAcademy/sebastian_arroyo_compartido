@@ -167,7 +167,7 @@ export default class CartPage implements Page{
 
     public loadEventBehavior(){
         this.renderCartItemList();
-        this.loadQuantityBehavior();
+        this.loadButtonsBehavior();
         
     }
 }
