@@ -20,7 +20,7 @@ export default class CartPage implements Page{
                         <th>Subtotal</th>
                     </tr>
                 </thead>
-                <tbody class = "product-cart-section-body">
+                <tbody id = "product-cart-section-body">
                     
                 </tbody>
             </table>
@@ -31,28 +31,68 @@ export default class CartPage implements Page{
         this.pageRenderer = controller
     }
 
-    private cartItemView(product: Product){
+    private cartItemView(product: Product) : string{
         return `
         <tr>
             <td>${product.id}</td>
             <td>${product.name}</td>
             <td>$${product.price}</td>
-            <td>${product.qtyRequested}</td>
-            <td>${product.qtyRequested * product.price}</td>
+            <td>
+                <div class = "d-flex space-between" >
+                    ${product.qtyRequested}
+                    <div>
+                        <button data-id = "${product.id}" class = "plus-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button data-id = "${product.id}" class = "minus-button">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td>$${product.qtyRequested * product.price}</td>
+            <td>
+                <div class = "d-flex space-evenly">
+                    <button data-id = "${product.id}" class = "trash-button">
+                        <i class="far fa-trash-alt fa-2x"></i>
+                    </button>
+                </div>
+            </td>
         </tr>
         `;
     }
+
+    private cartItemTotalView() : string{
+        let products = this.pageRenderer.store.cart.getProducts();
+        let totalPrice = 0;
+        products.forEach(p => {
+            totalPrice += p.qtyRequested * p.price;
+        })
+        return `
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>${this.pageRenderer.store.cart.counter}</td>
+            <td>$${totalPrice}</td>
+        </tr>
+        `;
+    }
+
+
 
     private renderCartItem(nodeHtml: Element) {
         this.pageRenderer.store.cart.getProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.cartItemView(p)))
     }
 
+    private renderCartItemTotal(nodeHtml : Element){
+        nodeHtml.insertAdjacentHTML("beforeend", this.cartItemTotalView());
+    }
+
     private renderCartItemList() {
-        Array.from(document.getElementsByClassName("product-cart-section-body"))
-            .forEach((element) => {
-                this.renderCartItem(element);
-    
-            })
+        let cartProductsSection = document.getElementById("product-cart-section-body") as Element;
+        this.renderCartItem(cartProductsSection);
+        this.renderCartItemTotal(cartProductsSection);
     }
 
     render():string{

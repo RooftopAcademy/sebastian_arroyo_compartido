@@ -234,10 +234,34 @@
 
 table, th, td {
     padding: 0.5rem;
-    border: 3px solid black;
+    border: 2px solid black;
     border-collapse: collapse;
-}  
+}
 
+/*CartPage Buttons*/
+
+.minus-button{
+    color: red;
+    border-color: red;
+    background-color: rgb(255, 160, 160);
+}
+
+.plus-button{
+    color: blue;
+    border-color: blue;
+    background-color: rgb(142, 134, 248);
+}
+
+.plus-button, .minus-button{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.plus-button, .minus-button, .trash-button :hover{
+    cursor: pointer;
+}
 
 /*Slider*/
 .slider{
