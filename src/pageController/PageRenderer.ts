@@ -45,5 +45,11 @@ export default class PageRenderer {
         })
     }
 
+    public updatePage(){
+        let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
+        mainContainer.innerHTML = this.currentPage.render();
+        this.currentPage.loadEventBehavior();
+    }
+
 
 }

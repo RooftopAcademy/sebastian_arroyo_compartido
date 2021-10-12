@@ -1,3 +1,4 @@
+import { isConstructorDeclaration } from "../../node_modules/typescript/lib/typescript";
 import Cart from "../classModel/Cart";
 import Catalog from "../classModel/Catalog";
 import Product from "../classModel/Product";
@@ -9,7 +10,12 @@ export default class CartPage implements Page{
     pageRenderer : PageRenderer;
 
     constructor(controller : PageRenderer){
-        this.content = `
+        this.content = this.baseHtmlView();
+        this.pageRenderer = controller;
+    }
+
+    private baseHtmlView():string{
+        return `
         <div class = "cart-container d-flex space-evenly" id = "cart">
             <div class = "product-cart-section" >
             <table class = "product-cart-table">
@@ -18,6 +24,7 @@ export default class CartPage implements Page{
                         <th>Id</th>
                         <th>Product Name</th>
                         <th>Price</th>
+                        <th>Stock</th>
                         <th>Quantity</th>
                         <th>Subtotal</th>
                     </tr>
@@ -29,8 +36,6 @@ export default class CartPage implements Page{
             </div>
         </div>
         `;
-        
-        this.pageRenderer = controller
     }
 
     private cartItemView(product: Product) : string{
@@ -39,6 +44,7 @@ export default class CartPage implements Page{
             <td>${product.id}</td>
             <td>${product.name}</td>
             <td>$${product.price}</td>
+            <td>${product.stock}</td>
             <td>
                 <div class = "d-flex space-between" >
                     ${product.qtyRequested}
@@ -73,6 +79,7 @@ export default class CartPage implements Page{
         })
         return `
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -124,15 +131,26 @@ export default class CartPage implements Page{
         cartNotification.innerHTML = cart.counter.toString();
     }
 
+    /*
+    Updates the current page by re-rendering trough the PageRenderer class 
+    */
+    public updatePage() {
+        this.content = this.baseHtmlView();
+        //this.renderCartItemList();
+        this.pageRenderer.updatePage();
+    }
+
     private productsButton(buttons: HTMLButtonElement[]){
         let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
         buttons.forEach(button => {
             button.addEventListener('click', () => {
                 if (button.className == "plus-button") this.plusButtonBehavior(button, cartNotification);
                 else this.minusButtonBehavior(button, cartNotification);
+                this.updatePage();
             })
         })
     }
+
 
     private loadButtonsBehavior(){
         let minusButtons = Array.from(this.pageRenderer.document.getElementsByClassName("minus-button")) as HTMLButtonElement[];
@@ -141,13 +159,15 @@ export default class CartPage implements Page{
         this.productsButton(buttons);
     }
 
-    render():string{
+
+
+    public render():string{
         return this.content;
     }
 
-    loadEventBehavior(){
+    public loadEventBehavior(){
         this.renderCartItemList();
-        this.loadButtonsBehavior();
+        this.loadQuantityBehavior();
         
     }
 }
