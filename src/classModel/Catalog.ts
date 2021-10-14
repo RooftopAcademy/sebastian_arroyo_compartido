@@ -18,4 +18,14 @@ export default class Catalog{
         return product != undefined ? product : new Product();
     }
 
+    public exportRandomSliderProducts(n: number) : Product[]{
+        let sliderProducts : Product[] = [];
+        for (let i = 0; i < n; i++) {
+            //adds random products from the catalog n times
+            sliderProducts.push(this.products[Math.floor(Math.random()*this.products.length)])
+        }
+        console.log(sliderProducts);
+        return sliderProducts;
+    }
+
 }
