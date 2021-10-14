@@ -495,10 +495,13 @@ class HomePage {
     }
     baseHtmlView() {
         return `
-        <div class = "slide-container d-flex" >
-            <button class="prev" >&laquo;</button>
-            <div class = "slide-product-container" id = "slide-product-container"></div>
-            <button class="next" >&raquo;</button>
+        <div class = "d-flex flex-column align-items-center">
+            <h1 class = "homepage-title">Our Products:</h1>
+            <div class = "slide-container d-flex" >
+                <button data-id = "-1" class="previous" >&laquo;</button>
+                <div class = "slide-product-container" id = "slide-product-container"></div>
+                <button data-id = "1" class="next" >&raquo;</button>
+            </div>
         </div>
         `;
     }
@@ -518,14 +521,42 @@ class HomePage {
         let sliderProducts = this.pageRenderer.store.catalog.exportRandomSliderProducts(5);
         sliderProducts.forEach((product) => {
             this.renderProduct(product, slideProductContainer);
-            console.log(product);
         });
     }
     render() {
         return this.content;
     }
+    sliderButton(n, sliderIndex, sliderLength) {
+        sliderIndex += n;
+        if (sliderIndex > sliderLength)
+            sliderIndex = 1;
+        if (sliderIndex < 1)
+            sliderIndex = sliderLength;
+        return sliderIndex;
+    }
+    sliderBehavior() {
+        let sliderIndex = 1;
+        let sliderProducts = Array.from(this.pageRenderer.document.getElementsByClassName("slide-product"));
+        //Renders first slider image
+        sliderProducts[0].style.display = "block";
+        let previousButtons = Array.from(this.pageRenderer.document.getElementsByClassName("previous"));
+        let nextButtons = Array.from(this.pageRenderer.document.getElementsByClassName("next"));
+        let sliderButtons = [...previousButtons, ...nextButtons];
+        sliderButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                let id = button.dataset.id;
+                sliderIndex = this.sliderButton(+id, sliderIndex, sliderProducts.length);
+                for (let i = 0; i < sliderProducts.length; i++) {
+                    sliderProducts[i].style.display = "none";
+                }
+                sliderProducts[sliderIndex - 1].style.display = "block";
+                console.log("sliderInder: " + sliderIndex);
+            });
+        });
+    }
     loadEventBehavior() {
         this.renderSliderProducts();
+        this.sliderBehavior();
     }
 }
 

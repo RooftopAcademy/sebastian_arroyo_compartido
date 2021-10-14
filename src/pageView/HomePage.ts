@@ -13,10 +13,13 @@ export default class HomePage implements Page{
 
     private baseHtmlView():string{
         return `
-        <div class = "slide-container d-flex" >
-            <button class="prev" >&laquo;</button>
-            <div class = "slide-product-container" id = "slide-product-container"></div>
-            <button class="next" >&raquo;</button>
+        <div class = "d-flex flex-column align-items-center">
+            <h1 class = "homepage-title">Our Products:</h1>
+            <div class = "slide-container d-flex" >
+                <button data-id = "-1" class="previous" >&laquo;</button>
+                <div class = "slide-product-container" id = "slide-product-container"></div>
+                <button data-id = "1" class="next" >&raquo;</button>
+            </div>
         </div>
         `;
     }
@@ -39,7 +42,6 @@ export default class HomePage implements Page{
         let sliderProducts: Product[] = this.pageRenderer.store.catalog.exportRandomSliderProducts(5);
         sliderProducts.forEach((product) => {
             this.renderProduct(product, slideProductContainer);
-            console.log(product);
         })
     }
 
@@ -47,8 +49,37 @@ export default class HomePage implements Page{
         return this.content;
     }
 
+    private sliderButton(n: number, sliderIndex:number, sliderLength:number):number{
+        sliderIndex += n;
+        if (sliderIndex > sliderLength) sliderIndex = 1;
+        if (sliderIndex < 1) sliderIndex = sliderLength;
+        return sliderIndex;
+    }
+
+    private sliderBehavior(){
+        let sliderIndex :number = 1;
+        let sliderProducts = Array.from(this.pageRenderer.document.getElementsByClassName("slide-product")) as HTMLButtonElement[];
+        //Renders first slider image
+        sliderProducts[0].style.display = "block";
+        let previousButtons = Array.from(this.pageRenderer.document.getElementsByClassName("previous")) as HTMLButtonElement[];
+        let nextButtons = Array.from(this.pageRenderer.document.getElementsByClassName("next")) as HTMLButtonElement[];
+        let sliderButtons : HTMLButtonElement[] = [...previousButtons, ...nextButtons];
+        sliderButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                let id: string = button.dataset.id as string;
+                sliderIndex = this.sliderButton(+id, sliderIndex, sliderProducts.length);
+                for (let i = 0; i < sliderProducts.length; i++) {
+                    sliderProducts[i].style.display = "none";
+                }
+                sliderProducts[sliderIndex-1].style.display = "block";
+                console.log("sliderInder: " + sliderIndex);
+            })
+        })
+    }
+
     public loadEventBehavior(){
         this.renderSliderProducts();
+        this.sliderBehavior();
         
     }
 }
