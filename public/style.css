@@ -166,10 +166,10 @@
 /*Slider*/
 
 .homepage-title{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    white-space: nowrap
-
+    white-space: nowrap;
+    margin: 1rem;
 }
 
 .slide-container{
@@ -184,10 +184,10 @@
 }
 
 .previous, .next{
-    width: 35px;
+    width: 40px;
     border: none;
     background: transparent;
-    font-size: 45px;
+    font-size: 50px;
     text-align: center;
     padding-bottom: 0.2rem;
     outline: none;
