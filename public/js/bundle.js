@@ -43,7 +43,9 @@ class Cart {
     }
     removeCartProduct(id) {
         let productToRemove = this.findById(id);
-        this.counter = this.counter - productToRemove.qtyRequested;
+        this.counter -= productToRemove.qtyRequested;
+        productToRemove.stock += productToRemove.qtyRequested;
+        productToRemove.qtyRequested = 0;
         this.products = this.products.filter((product) => {
             return product.id != id;
         });
@@ -391,7 +393,6 @@ class CartPage {
     */
     updatePage() {
         this.content = this.baseHtmlView();
-        //this.renderCartItemList();
         this.pageRenderer.updatePage();
     }
     productsButton(buttons) {
@@ -490,15 +491,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class ProductPage {
     constructor(controller) {
-        this.content = `
-        <div class="catalog d-flex wrap">
-
-        </div>
-        `;
+        this.content = this.baseHtmlView();
         this.pageRenderer = controller;
     }
     render() {
         return this.content;
+    }
+    baseHtmlView() {
+        return `
+        <div class="catalog d-flex wrap">
+
+        </div>
+        `;
     }
     productItemView(product) {
         return `
@@ -521,6 +525,10 @@ class ProductPage {
             this.renderProducts(element);
         });
     }
+    updatePage() {
+        this.content = this.baseHtmlView();
+        this.pageRenderer.updatePage();
+    }
     addToCartNotification() {
         //holds all add to cart buttons inside the product list
         let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button'));
@@ -535,6 +543,7 @@ class ProductPage {
                 //Adds object Product to current Cart
                 cart.addProduct(product);
                 cartNotification.innerHTML = cart.counter.toString();
+                this.updatePage();
             });
         });
     }

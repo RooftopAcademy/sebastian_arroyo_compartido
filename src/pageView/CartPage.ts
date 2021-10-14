@@ -90,8 +90,6 @@ export default class CartPage implements Page{
         `;
     }
 
-
-
     private renderCartItem(nodeHtml: Element) {
         this.pageRenderer.store.cart.getProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.cartItemView(p)))
     }
@@ -143,9 +141,8 @@ export default class CartPage implements Page{
     /*
     Updates the current page by re-rendering trough the PageRenderer class 
     */
-    public updatePage() {
+    private updatePage() {
         this.content = this.baseHtmlView();
-        //this.renderCartItemList();
         this.pageRenderer.updatePage();
     }
 
