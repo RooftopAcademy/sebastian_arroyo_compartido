@@ -10,16 +10,20 @@ export default class ProductPage implements Page{
 
 
     constructor(controller:PageRenderer){
-        this.content = `
-        <div class="catalog d-flex wrap">
-
-        </div>
-        `;
+        this.content = this.baseHtmlView();
         this.pageRenderer = controller;
     }
 
     render():string{
         return this.content;
+    }
+
+    private baseHtmlView():string{
+        return `
+        <div class="catalog d-flex wrap">
+
+        </div>
+        `;
     }
 
     private productItemView(product: Product){
@@ -49,6 +53,11 @@ export default class ProductPage implements Page{
             })
     }
 
+    private updatePage() {
+        this.content = this.baseHtmlView();
+        this.pageRenderer.updatePage();
+    }
+
     private addToCartNotification(){
         //holds all add to cart buttons inside the product list
         let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button')) as HTMLButtonElement[];
@@ -65,6 +74,7 @@ export default class ProductPage implements Page{
                 //Adds object Product to current Cart
                 cart.addProduct(product);
                 cartNotification.innerHTML = cart.counter.toString();
+                this.updatePage()
 
             })
 

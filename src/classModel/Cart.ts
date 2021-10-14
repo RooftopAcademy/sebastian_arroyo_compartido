@@ -38,7 +38,9 @@ export default class Cart{
 
     removeCartProduct(id:number){
         let productToRemove : Product = this.findById(id);
-        this.counter = this.counter - productToRemove.qtyRequested;
+        this.counter -= productToRemove.qtyRequested;
+        productToRemove.stock += productToRemove.qtyRequested;
+        productToRemove.qtyRequested = 0;
 
         this.products = this.products.filter((product) => {
             return product.id != id;
