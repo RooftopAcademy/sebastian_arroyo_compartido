@@ -83,6 +83,14 @@ class Catalog {
         let product = this.products.find((product) => product.id == id);
         return product != undefined ? product : new _Product__WEBPACK_IMPORTED_MODULE_0__["default"]();
     }
+    exportRandomSliderProducts(n) {
+        let sliderProducts = [];
+        for (let i = 0; i < n; i++) {
+            //adds random products from the catalog n times
+            sliderProducts.push(this.products[Math.floor(Math.random() * this.products.length)]);
+        }
+        return sliderProducts;
+    }
 }
 
 
@@ -153,6 +161,7 @@ class Store {
                 const products = yield response.json(); //Promise<any>
                 products.forEach(p => p.qtyRequested = 0);
                 this.catalog.products = products;
+                console.log("Product Data Fetched");
             }
             catch (err) {
                 console.log('Fetch failed ', err);
@@ -179,6 +188,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pageView_HomePage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageView/HomePage */ "./src/pageView/HomePage.ts");
 /* harmony import */ var _PageRouter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PageRouter */ "./src/pageController/PageRouter.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 class PageRenderer {
@@ -189,7 +207,11 @@ class PageRenderer {
         this.pageRouter = new _PageRouter__WEBPACK_IMPORTED_MODULE_1__["default"]();
     }
     fetchStoreProducts() {
-        this.store.fetchProductsFromApi();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.store.fetchProductsFromApi();
+            //waits for the fetching to end to render Homepage when you first load the webpage
+            this.renderHomePage();
+        });
     }
     changePage(newPagePath) {
         this.currentPage = this.pageRouter.getPage(newPagePath, this);
@@ -200,6 +222,7 @@ class PageRenderer {
     renderHomePage() {
         let mainContainer = this.document.getElementById('main-container');
         mainContainer.innerHTML = this.currentPage.render();
+        this.currentPage.loadEventBehavior();
     }
     renderPages() {
         let mainContainer = this.document.getElementById('main-container');
@@ -465,14 +488,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ HomePage)
 /* harmony export */ });
 class HomePage {
-    constructor(controller) {
-        this.content = "HomePage";
-        this.controller = controller;
+    constructor(pageRenderer) {
+        this.content = this.baseHtmlView();
+        ;
+        this.pageRenderer = pageRenderer;
+    }
+    baseHtmlView() {
+        return `
+        <div class = "slide-container d-flex" >
+            <button class="prev" >&laquo;</button>
+            <div class = "slide-product-container" id = "slide-product-container"></div>
+            <button class="next" >&raquo;</button>
+        </div>
+        `;
+    }
+    productSliderView(product) {
+        return `
+        <div class = "slide-product fade">
+            <img class = "slide-product-img" src = ${product.image}>
+        </div>
+        `;
+    }
+    renderProduct(product, slideProductContainer) {
+        slideProductContainer.insertAdjacentHTML("beforeend", this.productSliderView(product));
+    }
+    renderSliderProducts() {
+        let slideProductContainer = this.pageRenderer.document.getElementById("slide-product-container");
+        //Renders 5 products 
+        let sliderProducts = this.pageRenderer.store.catalog.exportRandomSliderProducts(5);
+        sliderProducts.forEach((product) => {
+            this.renderProduct(product, slideProductContainer);
+            console.log(product);
+        });
     }
     render() {
         return this.content;
     }
     loadEventBehavior() {
+        this.renderSliderProducts();
     }
 }
 
@@ -722,14 +775,30 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pageController_PageRenderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pageController/PageRenderer */ "./src/pageController/PageRenderer.ts");
 /* harmony import */ var _classModel_Store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./classModel/Store */ "./src/classModel/Store.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
-let store = new _classModel_Store__WEBPACK_IMPORTED_MODULE_1__["default"];
-let pageRenderer = new _pageController_PageRenderer__WEBPACK_IMPORTED_MODULE_0__["default"](document, store);
 //console.log(catalog);
-pageRenderer.fetchStoreProducts();
-pageRenderer.renderHomePage();
-pageRenderer.renderPages();
+/*window.onload = function() {
+    pageRenderer.fetchStoreProducts();
+    //pageRenderer.renderHomePage();
+    pageRenderer.renderPages();
+  };*/
+document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    let store = new _classModel_Store__WEBPACK_IMPORTED_MODULE_1__["default"];
+    let pageRenderer = new _pageController_PageRenderer__WEBPACK_IMPORTED_MODULE_0__["default"](document, store);
+    pageRenderer.fetchStoreProducts();
+    pageRenderer.renderPages();
+}));
+// no funciona ninguno de los dos incluyendo los diferentes renderHomepages a mimirrrrr
 
 })();
 

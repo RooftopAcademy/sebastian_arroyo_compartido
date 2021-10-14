@@ -19,10 +19,10 @@ export default class Store {
             const products: Product[] = await response.json(); //Promise<any>
             products.forEach(p => p.qtyRequested=0)
             this.catalog.products = products;
+            console.log("Product Data Fetched");
         } catch (err) {
             console.log('Fetch failed ', err);
         }
-
     }
 
     exportProducts() {

@@ -24,7 +24,6 @@ export default class Catalog{
             //adds random products from the catalog n times
             sliderProducts.push(this.products[Math.floor(Math.random()*this.products.length)])
         }
-        console.log(sliderProducts);
         return sliderProducts;
     }
 

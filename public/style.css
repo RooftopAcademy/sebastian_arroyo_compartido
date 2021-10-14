@@ -161,6 +161,19 @@
     background-color: #88a3f5;
 }
 
+/*HomePage/
+
+/*Slider*/
+
+.slide-container{
+    max-width: 1000px;
+
+}
+
+.slide-product-img{
+    width: 100%;
+}
+
 /*Products*/
 
 .products-main{

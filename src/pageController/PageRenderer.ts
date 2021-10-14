@@ -18,8 +18,10 @@ export default class PageRenderer {
         this.pageRouter = new PageRouter();
     }
 
-    fetchStoreProducts() {
-        this.store.fetchProductsFromApi();
+    async fetchStoreProducts() {
+        await this.store.fetchProductsFromApi();
+        //waits for the fetching to end to render Homepage when you first load the webpage
+        this.renderHomePage();
     }
 
     private changePage(newPagePath: string) {
@@ -30,9 +32,10 @@ export default class PageRenderer {
         return this.store.catalog;
     }
 
-    public renderHomePage() {
+    private renderHomePage() {
         let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
         mainContainer.innerHTML = this.currentPage.render();
+        this.currentPage.loadEventBehavior();
     }
 
     public renderPages() {
