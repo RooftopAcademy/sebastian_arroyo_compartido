@@ -1,11 +1,12 @@
 import Cart from "../classModel/Cart";
-import PageRenderer from "../controller/PageRenderer";
+import PageRenderer from "../pageController/PageRenderer";
 import Page from "./Page";
 import Product from "../classModel/Product";
+import Catalog from "../classModel/Catalog";
 
 export default class ProductPage implements Page{
     content:string;
-    controller : PageRenderer;
+    pageRenderer : PageRenderer;
 
 
     constructor(controller:PageRenderer){
@@ -14,7 +15,7 @@ export default class ProductPage implements Page{
 
         </div>
         `;
-        this.controller = controller;
+        this.pageRenderer = controller;
     }
 
     render():string{
@@ -37,11 +38,11 @@ export default class ProductPage implements Page{
 
 
     private renderProducts(nodeHtml: Element) {
-        this.controller.store.exportProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.productItemView(p)))
+        this.pageRenderer.store.exportProducts().forEach((p) => nodeHtml.insertAdjacentHTML("beforeend", this.productItemView(p)))
     }
     
     private renderProductList() {
-        Array.from(document.getElementsByClassName("catalog"))
+        Array.from(this.pageRenderer.document.getElementsByClassName("catalog"))
             .forEach((element) => {
                 this.renderProducts(element);
     
@@ -50,16 +51,19 @@ export default class ProductPage implements Page{
 
     private addToCartNotification(){
         //holds all add to cart buttons inside the product list
-        let addToCartButton = Array.from(document.getElementsByClassName('product-button')) as HTMLButtonElement[];
-        let cartNotification = document.getElementById('product-counter') as HTMLDivElement;
+        let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button')) as HTMLButtonElement[];
+        let cartNotification = this.pageRenderer.document.getElementById('product-counter') as HTMLDivElement;
         addToCartButton.forEach((button) => {
 
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', () => {
 
                 let id: string = button.dataset.id as string;
-                let cart:Cart =  this.controller.store.cart;
-                //Adds product id to my object cart inside object store for later use 
-                cart.add(+id);
+                let cart:Cart =  this.pageRenderer.store.cart;
+                let catalog :Catalog = this.pageRenderer.getProductsCatalog();
+                let product: Product = catalog.findById(+id);
+                console.log(product);
+                //Adds object Product to current Cart
+                cart.addProduct(product);
                 cartNotification.innerHTML = cart.counter.toString();
 
             })

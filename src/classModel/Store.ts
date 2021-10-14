@@ -1,12 +1,6 @@
 import Cart from './Cart'
 import Catalog from './Catalog'
 import Product from './Product'
-
-async function resolveHttpCall<T>(request: RequestInfo): Promise<T> {
-    const response = await fetch(request);
-    const body = await response.json();
-    return body;
-}
 export default class Store {
 
     catalog: Catalog;
@@ -19,15 +13,17 @@ export default class Store {
     }
 
     async fetchProductsFromApi() {
+        const jsonUrl = 'https://my-json-server.typicode.com/RooftopAcademy/sebastian_arroyo_compartido/products';
         try {
-            const products = await resolveHttpCall<Product[]>('https://my-json-server.typicode.com/RooftopAcademy/sebastian_arroyo_compartido/products');
+            const response = await fetch(jsonUrl);
+            const products: Product[] = await response.json(); //Promise<any>
+            products.forEach(p => p.qtyRequested=0)
             this.catalog.products = products;
         } catch (err) {
             console.log('Fetch failed ', err);
         }
 
     }
-
 
     exportProducts() {
         return this.catalog.products

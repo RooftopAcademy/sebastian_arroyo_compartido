@@ -2,6 +2,7 @@ import HomePage from "../pageView/HomePage";
 import Page from "../pageView/Page";
 import Store from "../classModel/Store";
 import PageRouter from "./PageRouter";
+import Catalog from "../classModel/Catalog";
 
 export default class PageRenderer {
     document: Document;
@@ -21,12 +22,12 @@ export default class PageRenderer {
         this.store.fetchProductsFromApi();
     }
 
-    private getMenuRoutes(): Element[] {
-        return Array.from(this.document.getElementsByClassName('js-route'));
-    }
-
     private changePage(newPagePath: string) {
         this.currentPage = this.pageRouter.getPage(newPagePath, this)
+    }
+
+    public getProductsCatalog() : Catalog{
+        return this.store.catalog;
     }
 
     public renderHomePage() {
@@ -42,6 +43,12 @@ export default class PageRenderer {
             mainContainer.innerHTML = this.currentPage.render();
             this.currentPage.loadEventBehavior();
         })
+    }
+
+    public updatePage(){
+        let mainContainer: HTMLDivElement = <HTMLDivElement>this.document.getElementById('main-container');
+        mainContainer.innerHTML = this.currentPage.render();
+        this.currentPage.loadEventBehavior();
     }
 
 

@@ -27,6 +27,18 @@
     align-items: center;
 }
 
+.justify-self-start{
+    justify-self: flex-start;
+}
+
+.justify-self-end{
+    justify-self: flex-end;
+}
+
+.justify-content-center{
+    justify-content: center;
+}
+
 .no-wrap{
     flex-wrap: nowrap;
 }
@@ -71,6 +83,10 @@
 }
 
 .navigation a:hover {
+    background-color: #185bc7;
+}
+
+.navigation a:focus {
     background-color: #185bc7;
 }
 
@@ -154,6 +170,12 @@
 .catalog{
     padding: 1rem;
     justify-content: space-evenly;
+    background-color: #557cf2;
+    border: thin solid black;
+    border-radius: 15px;
+    margin: 1rem;
+    min-width: 330px;
+
 }
 
 .product-item{
@@ -162,7 +184,7 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 200px;
-    margin: 0.5rem;
+    margin: 0.3rem;
     padding: 0.5rem;
     align-items: flex-end;
     justify-content: space-between;
@@ -174,28 +196,71 @@
     color: white;
     font-size: 0.8rem;
     flex-wrap: nowrap;
-    background-color: rgba(0, 0, 0, 0.445);
+    background-color: rgba(0, 0, 0, 0.345);
     padding: 0.2rem;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .product-button{
     cursor: pointer;
     padding: 0.2rem;
-    background-color: rgba(0, 0, 0, 0.445);
+    background-color: rgba(0, 0, 0, 0.345);
     color: white;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .product-button:hover{
     background-color: rgba(88, 87, 87, 0.445);
 }
 
-/*Cart*/
+/*CartPage*/
 
-.cart-main{
-    background-color: #e4ee90;
+
+.cart-container{
+     width: 80%;
+     min-width: 330px;
+}
+
+.product-cart-section{
+    background-color: white;
+    width: 100%;
+}
+
+
+.product-cart-table{
+    width: 100%;
+}
+
+table, th, td {
+    padding: 0.5rem;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+/*CartPage Buttons*/
+
+.minus-button{
+    color: red;
+    border-color: red;
+    background-color: rgb(255, 160, 160);
+}
+
+.plus-button{
+    color: blue;
+    border-color: blue;
+    background-color: rgb(142, 134, 248);
+}
+
+.plus-button, .minus-button{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.plus-button, .minus-button, .trash-button :hover{
+    cursor: pointer;
 }
 
 /*Slider*/
@@ -240,7 +305,7 @@
     color: black;
     text-transform: uppercase;
     letter-spacing: .09em;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
@@ -261,7 +326,7 @@
     font-size: 1rem;
     border: none;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 15px;
 
 
 }
