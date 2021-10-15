@@ -7,7 +7,7 @@ import ProductPage from "../pageView/ProductPage"
 import RegistrationPage from "../pageView/RegistrationPage"
 
 export default class PageRouter {
-    private paths:any
+    private paths: any;
 
     constructor() {
         this.paths = {

@@ -70,10 +70,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Catalog)
 /* harmony export */ });
 /* harmony import */ var _Product__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Product */ "./src/classModel/Product.ts");
+/* harmony import */ var _sortable_IdSort__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sortable/IdSort */ "./src/classModel/sortable/IdSort.ts");
+/* harmony import */ var _sortable_PriceSort__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sortable/PriceSort */ "./src/classModel/sortable/PriceSort.ts");
+/* harmony import */ var _sortable_ReverseSort__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sortable/ReverseSort */ "./src/classModel/sortable/ReverseSort.ts");
+/* harmony import */ var _sortable_StockSort__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sortable/StockSort */ "./src/classModel/sortable/StockSort.ts");
+
+
+
+
 
 class Catalog {
     constructor() {
         this.products = [];
+        this.sortable = new _sortable_IdSort__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        this.sorts = {
+            "id-sort": _sortable_IdSort__WEBPACK_IMPORTED_MODULE_1__["default"],
+            "price-sort": _sortable_PriceSort__WEBPACK_IMPORTED_MODULE_2__["default"],
+            "stock-sort": _sortable_StockSort__WEBPACK_IMPORTED_MODULE_4__["default"],
+            "reverse-sort": _sortable_ReverseSort__WEBPACK_IMPORTED_MODULE_3__["default"]
+        };
+    }
+    sortProducts(sortType) {
+        this.sortable = new this.sorts[sortType]();
+        this.products = this.sortable.sort(this.products);
     }
     add(product) {
         this.products.push(product);
@@ -170,6 +189,85 @@ class Store {
     }
     exportProducts() {
         return this.catalog.products;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/classModel/sortable/IdSort.ts":
+/*!*******************************************!*\
+  !*** ./src/classModel/sortable/IdSort.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IdSort)
+/* harmony export */ });
+class IdSort {
+    sort(products) {
+        products.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0));
+        return products;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/classModel/sortable/PriceSort.ts":
+/*!**********************************************!*\
+  !*** ./src/classModel/sortable/PriceSort.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PriceSort)
+/* harmony export */ });
+class PriceSort {
+    sort(products) {
+        products.sort((a, b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
+        return products;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/classModel/sortable/ReverseSort.ts":
+/*!************************************************!*\
+  !*** ./src/classModel/sortable/ReverseSort.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ReverseSort)
+/* harmony export */ });
+class ReverseSort {
+    sort(products) {
+        return products.reverse();
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/classModel/sortable/StockSort.ts":
+/*!**********************************************!*\
+  !*** ./src/classModel/sortable/StockSort.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StockSort)
+/* harmony export */ });
+class StockSort {
+    sort(products) {
+        products.sort((a, b) => (a.stock > b.stock) ? 1 : ((b.stock > a.stock) ? -1 : 0));
+        return products;
     }
 }
 
@@ -583,8 +681,18 @@ class ProductPage {
     }
     baseHtmlView() {
         return `
-        <div class="catalog d-flex wrap">
+        <div class = " d-flex flex-column">
+            <div class = "product-filter d-flex" >
+                <p>Sort By: </p>
+                <button data-id = "id-sort" class = "sort-button">Id</button>
+                <button data-id = "price-sort" class = "sort-button" >Price</button>
+                <button data-id = "stock-sort" class = "sort-button" >Stock</button>
+                <button data-id = "reverse-sort" class = "sort-button" >Reverse</button>
+            </div>
 
+            <div class="catalog d-flex wrap">
+
+            </div>
         </div>
         `;
     }
@@ -613,6 +721,19 @@ class ProductPage {
         this.content = this.baseHtmlView();
         this.pageRenderer.updatePage();
     }
+    sortProductList() {
+        let sortButtons = Array.from(this.pageRenderer.document.getElementsByClassName('sort-button'));
+        sortButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                let sortType = button.dataset.id;
+                console.log(sortType);
+                let catalog = this.pageRenderer.getProductsCatalog();
+                catalog.sortProducts(sortType);
+                console.log(catalog.products);
+                this.updatePage();
+            });
+        });
+    }
     addToCartNotification() {
         //holds all add to cart buttons inside the product list
         let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button'));
@@ -634,6 +755,7 @@ class ProductPage {
     loadEventBehavior() {
         this.renderProductList();
         this.addToCartNotification();
+        this.sortProductList();
     }
 }
 

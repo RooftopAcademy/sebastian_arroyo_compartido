@@ -20,8 +20,18 @@ export default class ProductPage implements Page{
 
     private baseHtmlView():string{
         return `
-        <div class="catalog d-flex wrap">
+        <div class = " d-flex flex-column">
+            <div class = "product-filter d-flex" >
+                <p>Sort By: </p>
+                <button data-id = "id-sort" class = "sort-button">Id</button>
+                <button data-id = "price-sort" class = "sort-button" >Price</button>
+                <button data-id = "stock-sort" class = "sort-button" >Stock</button>
+                <button data-id = "reverse-sort" class = "sort-button" >Reverse</button>
+            </div>
 
+            <div class="catalog d-flex wrap">
+
+            </div>
         </div>
         `;
     }
@@ -58,6 +68,21 @@ export default class ProductPage implements Page{
         this.pageRenderer.updatePage();
     }
 
+    private sortProductList(){
+        let sortButtons = Array.from(this.pageRenderer.document.getElementsByClassName('sort-button')) as HTMLButtonElement[];
+        sortButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                let sortType: string = button.dataset.id as string;
+                console.log(sortType);
+                let catalog :Catalog = this.pageRenderer.getProductsCatalog();
+                catalog.sortProducts(sortType);
+                console.log(catalog.products);
+                this.updatePage();
+            })
+        })
+    }
+
+
     private addToCartNotification(){
         //holds all add to cart buttons inside the product list
         let addToCartButton = Array.from(this.pageRenderer.document.getElementsByClassName('product-button')) as HTMLButtonElement[];
@@ -85,5 +110,6 @@ export default class ProductPage implements Page{
     loadEventBehavior(){
         this.renderProductList();
         this.addToCartNotification();
+        this.sortProductList();
     }
 }
