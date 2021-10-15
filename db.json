@@ -1,5 +1,4 @@
-{
-    "products" : [
+[
     {
         "id": 1,
         "image": "resources/GeForce-RTX-3090.jpg",
@@ -106,5 +105,4 @@
         "stock": 0,
         "price": 760
     }
-    ]
-}
+]
