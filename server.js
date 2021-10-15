@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
+const productsDB = require('./db.json')
 
 app.get('/', (req,res) => {
     res.sendFile(__dirname + '/index.html');
 })
-/*
-app.get('/style.css', (req,res) => {
-    //res.setHeader('Content-Type', 'text/css');
-    res.sendFile(__dirname + '/static/style.css');
-})*/
+
+app.get('/products', (req,res) => {
+    res.json(productsDB);
+})
 
 app.use(express.static('public'));
 app.listen(3000);

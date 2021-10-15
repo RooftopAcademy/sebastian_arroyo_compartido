@@ -172,9 +172,21 @@ class Store {
         this.catalog = new _Catalog__WEBPACK_IMPORTED_MODULE_1__["default"];
         this.cart = new _Cart__WEBPACK_IMPORTED_MODULE_0__["default"];
     }
+    /*async fetchProductsFromApi() {
+        const jsonUrl = 'https://my-json-server.typicode.com/RooftopAcademy/sebastian_arroyo_compartido/db';
+        try {
+            const response = await fetch(jsonUrl);
+            const products: Product[] = await response.json(); //Promise<any>
+            products.forEach(p => p.qtyRequested=0);
+            this.catalog.products = products;
+            console.log("Product Data Fetched");
+        } catch (err) {
+            console.log('Fetch failed ', err);
+        }
+    }*/
     fetchProductsFromApi() {
         return __awaiter(this, void 0, void 0, function* () {
-            const jsonUrl = 'https://my-json-server.typicode.com/RooftopAcademy/sebastian_arroyo_compartido/products';
+            const jsonUrl = 'http://localhost:3000/products';
             try {
                 const response = yield fetch(jsonUrl);
                 const products = yield response.json(); //Promise<any>
@@ -187,6 +199,18 @@ class Store {
             }
         });
     }
+    /*async fetchProductsFromApi() {
+        const jsonUrl = 'http://localhost:3000/products';
+        try {
+            let products: Product[] = []
+            await fetch(jsonUrl).then(res => res.json().then(json => products = json));
+            products.forEach(p => p.qtyRequested=0)
+            this.catalog.products = products;
+            console.log("Product Data Fetched");
+        } catch (err) {
+            console.log('Fetch failed ', err);
+        }
+    }*/
     exportProducts() {
         return this.catalog.products;
     }
